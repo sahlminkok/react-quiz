@@ -1,8 +1,4 @@
-function Progress({ index, numQuestions, points, questions, answer }) {
-  const totalPoints = questions.reduce((total, question) => {
-    return total + question.points;
-  }, 0);
-
+function Progress({ index, numQuestions, points, maxPossiblePoints, answer }) {
   return (
     <header className="progress">
       <progress max={numQuestions} value={index + Number(answer !== null)} />
@@ -10,7 +6,7 @@ function Progress({ index, numQuestions, points, questions, answer }) {
         Question <strong>{index + 1}</strong> / {numQuestions}
       </p>
       <p>
-        <strong>{points}</strong> / {totalPoints} points
+        <strong>{points}</strong> / {maxPossiblePoints} points
       </p>
     </header>
   );
