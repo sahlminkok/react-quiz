@@ -7,6 +7,7 @@ import StartScreen from "../StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import FinishScreen from "./FinishScreen";
 
 const initialState = {
   questions: [],
@@ -55,6 +56,9 @@ function App() {
   );
 
   const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce((total, question) => {
+    return total + question.points;
+  }, 0);
 
   useEffect(() => {
     fetch("http://localhost:8000/questions")
@@ -79,7 +83,7 @@ function App() {
               numQuestions={numQuestions}
               index={index}
               points={points}
-              questions={questions}
+              maxPossiblePoints={maxPossiblePoints}
               answer={answer}
             />
             <Question
@@ -89,6 +93,9 @@ function App() {
             />
             <NextButton dispatch={dispatch} answer={answer} />
           </>
+        )}
+        {status === "finished" && (
+          <FinishScreen points={points} maxPossiblePoints={maxPossiblePoints} />
         )}
       </Main>
     </div>
